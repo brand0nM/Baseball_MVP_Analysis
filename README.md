@@ -19,6 +19,10 @@ A new metric was added, read "extra base hits plus" that is calculated XBH+ = ((
 
 ## Dashboard
 Using React I was able to create a two part application that allows us to solidify the pipline.
+
+![Screen Shot 2022-08-30 at 10 42 47 AM](https://user-images.githubusercontent.com/79609464/187493285-7b863839-077a-4784-bb5a-8880324dc0d2.png)
+![Screen Shot 2022-08-30 at 10 42 57 AM](https://user-images.githubusercontent.com/79609464/187493308-5bb8de02-6cf0-4364-ac5d-fa9a0269ec91.png)
+
 ### Server
 The server side of our build uses node package manager to pool the selected data from Postgres and host it as a local API
 
