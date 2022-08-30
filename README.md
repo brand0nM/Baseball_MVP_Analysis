@@ -58,10 +58,10 @@ View our storyboard below:<br>
 https://docs.google.com/presentation/d/1IHzRlhsstyT3hoKUVuXkOjxD-A0PplcPukq9Qvsl9BU/edit?usp=sharing
 
 
-https://user-images.githubusercontent.com/79609464/187343707-f7e69dca-6370-456c-aae4-a17cc8cd07b3.mov
+![Setup](https://user-images.githubusercontent.com/79609464/187343707-f7e69dca-6370-456c-aae4-a17cc8cd07b3.mov)
 
 
-https://user-images.githubusercontent.com/79609464/187343962-a818d307-b54e-491a-907d-4406081b708b.mov
+![Dashboard Demo](https://user-images.githubusercontent.com/79609464/187343962-a818d307-b54e-491a-907d-4406081b708b.mov)
 
 
 
