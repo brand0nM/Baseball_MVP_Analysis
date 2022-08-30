@@ -3,7 +3,7 @@ import './slider.less'
 import Xbh from './Components/Xbh'
 import Graph from './Components/Graph'
 import Graph2 from './Components/Graph2'
-import {RangeSlider} from 'rsuite'
+import {RangeSlider, Loader} from 'rsuite'
 
 
 export default function App() {
@@ -41,7 +41,7 @@ export default function App() {
 
 	return (
 		<div className="App">
-			{data && 
+			{data? 
 			<>
 				<div className='title'><h1>Major League Baseball</h1></div>
 				<div className='dashboard-description'>
@@ -111,7 +111,11 @@ export default function App() {
 						<label htmlFor="nonMVP">nonMVP</label>
 					</fieldset>
 				</div>
-			</>}
+			</>: 
+			<div style = {{display: 'flex', marginTop: '86px'}}>
+				<Loader size="lg"/><h1 style= {{marginLeft: '22px', color: '#F5F5DC'}}>Loading</h1>
+			</div>
+			}
 			<Graph
 				data = {data}
 				form = {form}

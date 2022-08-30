@@ -4,11 +4,11 @@ import {Loader} from 'rsuite'
 
 
 export default function Graph2({data, form}){
+	const [nonMVPStats, setNonMVPStats] = React.useState();
+	const [MVPStats, setMVPStats] = React.useState();
 	const weighted = ['wSB', 'wRAA', 'wRC', 'wRC+'];
 	const leagueList = ['H','1B','2B','3B','HR','R','RBI'];
 
-	const [nonMVPStats, setNonMVPStats] = React.useState();
-	const [MVPStats, setMVPStats] = React.useState();
 
 	function MVPFill(list, mvp, form) {
 		let NLstatus = form.NL? 'NL':false
@@ -21,9 +21,12 @@ export default function Graph2({data, form}){
 		};
 		return NonMVPStats
 	};
+
 	function Average(list) {
 		return list.reduce((b, a) => Number(b) + Number(a), 0)/ list.length;
 	}
+
+
 	React.useEffect(() => {
 		if (data) {
 			form.nonMVP? setNonMVPStats([MVPFill(weighted,'0', form), MVPFill(leagueList,'0', form)]):
@@ -36,24 +39,20 @@ export default function Graph2({data, form}){
 
 	return (
 		<div className='mvp-plot'>
-		{data?
+		{data&&
 			<>
 				<Plotly 
 					data={[
 						{
 							x: weighted,
 							y: MVPStats && MVPStats[0].map(stat => Average(stat)),
-							type: 'scatter',
-							mode: 'markers',
-							name: 'MVP',
+							type: 'scatter', mode: 'markers', name: 'MVP',
 							marker: {color: '#F5F5DC'},
 						},
 						{
 							x: weighted,
 							y: nonMVPStats && nonMVPStats[0].map(stat => Average(stat)),
-							type: 'scatter',
-							name: 'Non MVP',
-							marker: {color: '#D8BFD8'},
+							type: 'scatter', name: 'Non MVP', marker: {color: '#D8BFD8'},
 						},
 						{type: 'scatter', x: [], y: []},
 					]}
@@ -68,17 +67,13 @@ export default function Graph2({data, form}){
 						{
 							x: leagueList,
 							y: MVPStats && MVPStats[1].map(stat => Average(stat)),
-							type: 'scatter',
-							name: 'MVP',
-							mode: 'markers',
+							type: 'scatter', name: 'MVP', mode: 'markers',
 							marker: {color: '#F5F5DC'},
 						},
 						{
 							x: leagueList,
 							y: nonMVPStats && nonMVPStats[1].map(stat => Average(stat)),
-							type: 'scatter',
-							name: 'Non MVP',
-							marker: {color: '#D8BFD8'},
+							type: 'scatter', name: 'Non MVP', marker: {color: '#D8BFD8'},
 						},
 						{type: 'scatter', x: [], y: []},
 					]}
@@ -89,9 +84,7 @@ export default function Graph2({data, form}){
 						yaxis: {gridcolor: '#a52a2a', linecolor: '#a52a2a', zerolinecolor: '#a52a2a'}}}
 				/>
 
-			</> : <div style = {{display: 'flex', marginTop: '86px'}}>
-				<Loader size="lg"/><h1 style= {{marginLeft: '22px', color: '#F5F5DC'}}>Loading</h1>
-			</div>
+			</>
 		}
 		</div>
 	)

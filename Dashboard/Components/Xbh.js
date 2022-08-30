@@ -1,5 +1,6 @@
 import React from 'react'
 import Plotly from 'react-plotly.js'
+import filteredXBH from './Helper_Functions/Helper'
 
 export default function Xbh({data, form}){
 	const [nationalLeague, setNationLeague] = React.useState();
@@ -7,30 +8,28 @@ export default function Xbh({data, form}){
 
 
 	function setStatus(data, form) {
-		let mvp = form.MVP? '1': false;
-		let nonmvp = form.nonMVP? '0': false;
-		
-		if (form.NL === true) {
-			let x = data.filter(person => (person.lgID === 'NL' && 
-					person.Season <= form.season[1] && person.Season >= form.season[0] &&
-					(person.MVP === mvp || person.MVP === nonmvp))).map(player => (player.Season))
-			let y = data.filter(person => (person.lgID === 'NL' && 
-					person.Season <= form.season[1] && person.Season >= form.season[0] &&
-					(person.MVP === mvp || person.MVP === nonmvp))).map(getXBH)
-			setNationLeague({x:x, y:y, type: 'box',  name: 'National League', marker: {color: '#D8BFD8'}})
-		} else {setNationLeague({x:form.season, y:[ ], type: 'box', marker: {color: '#D8BFD8'}})}
-		if (form.AL === true) {
-			let x = data.filter(person => (person.lgID === 'AL' && 
-					person.Season <= form.season[1] && person.Season >= form.season[0] &&
-					(person.MVP === mvp || person.MVP === nonmvp))).map(player => (player.Season))
-			let y = data.filter(person => (person.lgID === 'AL' && 
-					person.Season <= form.season[1] && person.Season >= form.season[0] &&
-					(person.MVP === mvp || person.MVP === nonmvp))).map(getXBH)
-			setAmericanLeague({x:x, y:y, type: 'box',  name: 'American League', marker: {color: '#F5F5DC'}})
-		} else {setAmericanLeague({x:form.season, y:[ ], type: 'box', marker: {color: '#D8BFD8'}})}
+		if (form.NL === true) {createTrace(data, form, 'NL', 'National League', '#D8BFD8')} 
+		else {setNationLeague({x:form.season, y:[ ], type: 'box', marker: {color: '#D8BFD8'}})}
+		if (form.AL === true) {createTrace(data, form, 'AL', 'American League', '#F5F5DC')}
+		else {setAmericanLeague({x:form.season, y:[ ], type: 'box', marker: {color: '#D8BFD8'}})}
 
 	}
-	function getXBH (player) {
+	function createTrace(data, form, league, name, color) {
+		let mvp = form.MVP? '1': false;
+		let nonmvp = form.nonMVP? '0': false;
+		let x = data.filter(person => (filters(person, league, form, mvp, nonmvp))).map(player => (player.Season))
+		let y = data.filter(person => (filters(person, league, form, mvp, nonmvp))).map(getXBH)
+		if (league === 'NL') {setNationLeague({x:x, y:y, type: 'box',  name: name, marker: {color: color}})}
+		else {setAmericanLeague({x:x, y:y, type: 'box',  name: name, marker: {color: color}})}
+	}
+	function filters(person, league, form, mvp, nonmvp) {
+		if (person.lgID === league && person.Season <= form.season[1] 
+			&& person.Season >= form.season[0] &&
+			(person.MVP === mvp || person.MVP === nonmvp)) {
+			return person
+		}
+	}
+	function getXBH(player) {
 		if (player['XBH+'] !== undefined) {
 			return player['XBH+']
 		}
@@ -43,7 +42,6 @@ export default function Xbh({data, form}){
 			setStatus(data, form);
 		};
 	}, [data, form]);
-
 	return (
 		<div className='xbh'>
 		{data &&
