@@ -21,18 +21,19 @@ A new metric was added, read "extra base hits plus" that is calculated XBH+ = ((
 Using React I was able to create a two part application that allows us to solidify the pipline.
 ### Server
 The server side of our build uses node package manager to pool the selected data from Postgres and host it as a local API
+
 https://user-images.githubusercontent.com/79609464/187453057-f86e069e-f623-4421-8f05-937b9f485cdc.mp4
 
 ### React Application
-Calls the API using an async, tryfetch statement then adds its results to 
-, and add's a data stat to store our raw data from the API call
+While loading, the app calls the servers API using an async try fetch statement, then adds its results to a local state called data in the App component; Another state is initialized called form which holds the selections of our filters. Then the data and form states are passed to each graph component, where local data states are initialized that hold a subsections of data we want to display. Since these subsections are depended on our forms selection, React's useEffect hook resolves this conflict; on changes to our form, if the data exist, gather that data's subset.
+
 https://user-images.githubusercontent.com/79609464/187453162-0416a0a0-7540-4e5d-b433-0921c41da837.mp4
 
+## Summary
+A data pipeline was created that displays up-to-date MLB stats and MVP predictions for each league
 
-
-
-### Group Presentation
-![Group Repository](https://github.com/lbp12/Moneyball)
-![Final Presentation](https://docs.google.com/presentation/d/1XskK5MMPLX6G7jf0J1knfi2zl5QrayQTjjjfoeoP_kA/edit?usp=sharing)
+### Group Work
+[Repository](https://github.com/lbp12/Moneyball)<br /><br />
+[Final Presentation](https://docs.google.com/presentation/d/1XskK5MMPLX6G7jf0J1knfi2zl5QrayQTjjjfoeoP_kA/edit?usp=sharing)
 
 
