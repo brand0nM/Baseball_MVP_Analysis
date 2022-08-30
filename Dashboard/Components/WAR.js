@@ -1,6 +1,5 @@
 import React from 'react'
 import Plotly from 'react-plotly.js'
-import filteredWAR from './Helper_Functions/Helper'
 
 export default function Graph({data, form}){
 	const [nationalLeague, setNationLeague] = React.useState();

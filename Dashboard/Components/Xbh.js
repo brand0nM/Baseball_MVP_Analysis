@@ -1,6 +1,5 @@
 import React from 'react'
 import Plotly from 'react-plotly.js'
-import filteredXBH from './Helper_Functions/Helper'
 
 export default function Xbh({data, form}){
 	const [nationalLeague, setNationLeague] = React.useState();

@@ -1,6 +1,5 @@
 import React from 'react'
 import Plotly from 'react-plotly.js'
-import {Loader} from 'rsuite'
 
 
 export default function Graph2({data, form}){

@@ -1,1 +1,1 @@
-db_password = 'CSCboi*!69'
+db_password = 'Enter Postgres Password'
