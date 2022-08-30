@@ -1,77 +1,37 @@
 # Baseball_MVP_Analysis
-
 ## Overview
-In this project we have gathered baseball player statistics from the built in python library, pybaseball, to utilize in training a supervised machine learning model in order to predict if a player will be made MVP.<br>
-- Selected Topic --- Baseball
-- Reason of selecting topic --- There is a vast amount of statistical data in baseball and we believe this will help in creating a well trained prediction model.
-- Description of source data --- Our data was gathered from a built in python library, pybaseball. This library was developed by James LeDoux, a data scientist and armchair sabermetrician. We also used data from Sean Lahman's baseball database, this is also stored within pybaseball.
-- Question to answer --- Can we predict an MVP based on a player's batting statistics?<br>
+Predict 2022's MVP for each MLB league
 
-## Project Outline
+### Purpose
+Use python's pybaseball library (developed by James LeDoux, its essentially a webscrapping package) to gather player statstics, then train a supervised logistic classifier to predict if a player will be made MVP. SQLalchemy was then used to autoschema the data for Postgres. Once historic and predicted data was in SQL we merged the two tables and serve it data to our localhost; then we made an API call to retrieve the data and diplayed its insights in a Dashboard on another port.
 
-### Communication Protocols
-We will communicate primarly through Slack using a separtate group message. We will meet during class time 2 times a week to discuss where each of are at in our project. 
+## Pipeline
+Functional Based Programing was used to store cleaning functions outside the main notebooks; this was done to make the notebooks more legible
 
-### Technologies to be Used
-Language: Python, and SQL
+### Cleaner.py
+Contains a series of functions that pull each seasons batting stats from 1982-2021, merges their awards dataframe and classifies each player as an MVP with 1 or 0. The data is then split by league and autoschema declares each columns for Postgres as tables NL and AL. 
 
-Interpreter: Jupyter Notebook
+### Machine_Learning.py
+Contains a series of functions that pull 1982-2021's data from Postgres, scale, and train a logistic classifier using Sklearn. Then pull and scale 2022's data- allowing stats like WAR to be comparable midseason. Finally, predict the 2022 MVP's for each league and store this new cleaned dashboard in Postgres. The Predicted MVP- on August 27th- for the National League was Paul Goldschmidt, and American was Aaron Judge; When the pipeline is rerun, MVP's could change since 2022's season is not complete. The accuracy when last ran was 98% and 99% respectively.
 
-Packages: from pybaseball import batting_stats_range
-          from pybaseball import batting_stats
-          from pathlib import Path
-          from sklearn import LogisticRegression
-	    from sklearn.model_selection import train_test_split
+## Analysis
+Through out the project decisions were made to help our model more accuratly classify MVP's. This first was to drop any years where pitchers had won the title; this excluded the 2014 season for National League and the seasons 1984, 1986, 1992, 2011 for the American League. In this process we made batting more of a focus for the model, but neglect to consider the random years where pitchers had won. We also dropped 2020, since there were less overall games and this skewed recorded stats.
+### XBH+
+We also added a new metric read "extra base hits plus" that is calculated XBH+ = ((R+2B+3B+HR)-(SO))/PA. The metric weights their base hits and stikeouts to their plate apperances; In words, everytime you make a plate apperance, how valuable are you? We figured this could be helpful for our MVP analysis
 
+## Dashboard
+Using React I was able to create a two part application that allows us to solidify the pipline.
 
-Libraries: import numpy as np
-           import pandas as pd          
-
-Database: Direct import into PostgreSQL
-
-Machine Learning Model: Logistic Regression Model
-
-### Database
-We have set up a database in PostgreSQL to hold our data. This was done with SQLAlchemy importing the dataframes directly into Postgre from our initial ETL notebook.
-
-### Machine Learning Model
-- Which model did you choose and why?
-We currently have selected the Logistic Regression Model because we are looking to predict if a player will be made MVP or not based on that seasons batting stats.
-- How are you training your model?
-We are using the train test split package from sklearn
-- What is the model's accuracy?
-Our model's accuracy is 97%
-- How does this model work?
-Logistic Regression is used to predict binary outcomes. In other words, is a player going to be MVP or not?
-
-### Data Exploration
-- Pulled batting stats and award stats from 1982-2022
-- Excluded season 1984, 1986, 1992, 2011, 2014 and 2020
-- Pulled data into two separate dataframes - American League & National League
-
-### Data Analysis
-- Created a new metric - XBH+
-- Added additional metrics into analysis
-
-### Dashboard Storyboard
-View our storyboard below:<br>
-https://docs.google.com/presentation/d/1IHzRlhsstyT3hoKUVuXkOjxD-A0PplcPukq9Qvsl9BU/edit?usp=sharing
-
-
-
+### Server
 
 https://user-images.githubusercontent.com/79609464/187453057-f86e069e-f623-4421-8f05-937b9f485cdc.mp4
-
-
-
-
-
 https://user-images.githubusercontent.com/79609464/187453162-0416a0a0-7540-4e5d-b433-0921c41da837.mp4
 
 
 
 
-### Final Presentation
+### Group Presentation
 View our final presentation:<br>
 https://docs.google.com/presentation/d/1XskK5MMPLX6G7jf0J1knfi2zl5QrayQTjjjfoeoP_kA/edit?usp=sharing
+![Group Repository](https://github.com/lbp12/Moneyball)
 
