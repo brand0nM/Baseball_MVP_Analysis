@@ -1,0 +1,7 @@
+PostgreSQL: database titled Raw_Stats and config with your db_password
+
+
+Python libraries: Pybaseball, SQLalchemy, Pandas, Warnings, Psycopg2, time, SKlearn
+
+
+Node.js: React
