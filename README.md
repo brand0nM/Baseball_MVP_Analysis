@@ -6,11 +6,13 @@ Predict 2022's MVP for each MLB league
 Use python's pybaseball library (developed by James LeDoux, it's essentially a web scrapping package) to gather player statistics, then train a supervised logistic classifier to predict if a player will be made MVP. SQLalchemy was then used to auto schema the data for Postgres. Once historic and predicted data was in SQL we merged the two tables and serve it data to our localhost; then we made an API call to retrieve the data and displayed its insights in a Dashboard on another port.
 
 ## Pipeline
-Functional Based Programming was used to store cleaning functions outside the main notebooks; this was done to make the notebooks more legible
 ### Cleaner.py
 Contains a series of functions that pull each season's batting stats from 1982-2021, merge their awards data frame, and classify each player as an MVP with 1 or 0. The data is then split by league and auto schema declares each column for Postgres as tables NL and AL. 
 ### Machine_Learning.py
 Contains a series of functions that pull historic data from Postgres, scale, and train a logistic classifier using Sklearn. Then pull and scale 2022's data from pybaseball- allowing stats like WAR to be comparable midseason. Finally, predict the 2022 MVPs for each league and store this new cleaned dashboard in Postgres. The Predicted MVP- on August 27th- for the National League was Paul Goldschmidt, and American was Aaron Judge; When the pipeline is rerun, MVPs could change since 2022's season is not complete. The accuracy when last ran was 98% and 99% respectively.
+### Running The Pipeline
+
+	$ python3 Baseball.py
 
 ## Analysis
 Throughout the project, decisions were made to help our model more accurately classify MVPs. This first was to drop any years where pitchers had won the title; this excluded the 2014 season for National League and the seasons 1984, 1986, 1992, and 2011 for the American League. In this process, we made batting more of a focus in the model but neglected to consider sporadic years where pitchers had won. We also dropped 2020, since there were fewer overall games, and this skewed recorded stats.
